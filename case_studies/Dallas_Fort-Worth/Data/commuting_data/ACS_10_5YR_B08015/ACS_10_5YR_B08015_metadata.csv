@@ -1,0 +1,9 @@
+GEO.id,Id
+GEO.id2,Id2
+GEO.display-label,Geography
+HD01_VD01,"Estimate; Aggregate number of vehicles (car, truck, or van) used in commuting:"
+HD02_VD01,"Margin of Error; Aggregate number of vehicles (car, truck, or van) used in commuting:"
+HD01_VD02,"Estimate; Aggregate number of vehicles (car, truck, or van) used in commuting: - Male"
+HD02_VD02,"Margin of Error; Aggregate number of vehicles (car, truck, or van) used in commuting: - Male"
+HD01_VD03,"Estimate; Aggregate number of vehicles (car, truck, or van) used in commuting: - Female"
+HD02_VD03,"Margin of Error; Aggregate number of vehicles (car, truck, or van) used in commuting: - Female"
