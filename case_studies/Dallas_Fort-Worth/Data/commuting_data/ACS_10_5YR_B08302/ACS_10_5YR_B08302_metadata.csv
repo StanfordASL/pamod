@@ -1,33 +1,3 @@
-GEO.id,Id
-GEO.id2,Id2
-GEO.display-label,Geography
-HD01_VD01,Estimate; Total:
-HD02_VD01,Margin of Error; Total:
-HD01_VD02,Estimate; Total: - 12:00 a.m. to 4:59 a.m.
-HD02_VD02,Margin of Error; Total: - 12:00 a.m. to 4:59 a.m.
-HD01_VD03,Estimate; Total: - 5:00 a.m. to 5:29 a.m.
-HD02_VD03,Margin of Error; Total: - 5:00 a.m. to 5:29 a.m.
-HD01_VD04,Estimate; Total: - 5:30 a.m. to 5:59 a.m.
-HD02_VD04,Margin of Error; Total: - 5:30 a.m. to 5:59 a.m.
-HD01_VD05,Estimate; Total: - 6:00 a.m. to 6:29 a.m.
-HD02_VD05,Margin of Error; Total: - 6:00 a.m. to 6:29 a.m.
-HD01_VD06,Estimate; Total: - 6:30 a.m. to 6:59 a.m.
-HD02_VD06,Margin of Error; Total: - 6:30 a.m. to 6:59 a.m.
-HD01_VD07,Estimate; Total: - 7:00 a.m. to 7:29 a.m.
-HD02_VD07,Margin of Error; Total: - 7:00 a.m. to 7:29 a.m.
-HD01_VD08,Estimate; Total: - 7:30 a.m. to 7:59 a.m.
-HD02_VD08,Margin of Error; Total: - 7:30 a.m. to 7:59 a.m.
-HD01_VD09,Estimate; Total: - 8:00 a.m. to 8:29 a.m.
-HD02_VD09,Margin of Error; Total: - 8:00 a.m. to 8:29 a.m.
-HD01_VD10,Estimate; Total: - 8:30 a.m. to 8:59 a.m.
-HD02_VD10,Margin of Error; Total: - 8:30 a.m. to 8:59 a.m.
-HD01_VD11,Estimate; Total: - 9:00 a.m. to 9:59 a.m.
-HD02_VD11,Margin of Error; Total: - 9:00 a.m. to 9:59 a.m.
-HD01_VD12,Estimate; Total: - 10:00 a.m. to 10:59 a.m.
-HD02_VD12,Margin of Error; Total: - 10:00 a.m. to 10:59 a.m.
-HD01_VD13,Estimate; Total: - 11:00 a.m. to 11:59 a.m.
-HD02_VD13,Margin of Error; Total: - 11:00 a.m. to 11:59 a.m.
-HD01_VD14,Estimate; Total: - 12:00 p.m. to 3:59 p.m.
-HD02_VD14,Margin of Error; Total: - 12:00 p.m. to 3:59 p.m.
-HD01_VD15,Estimate; Total: - 4:00 p.m. to 11:59 p.m.
-HD02_VD15,Margin of Error; Total: - 4:00 p.m. to 11:59 p.m.
+version https://git-lfs.github.com/spec/v1
+oid sha256:8fd0edb8eb0ebb3734f1b812690a075f42c504e663ea87eb4c0bf128b5dc2a73
+size 1712

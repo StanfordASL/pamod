@@ -1,9 +1,3 @@
-GEO.id,Id
-GEO.id2,Id2
-GEO.display-label,Geography
-HD01_VD01,"Estimate; Aggregate number of vehicles (car, truck, or van) used in commuting:"
-HD02_VD01,"Margin of Error; Aggregate number of vehicles (car, truck, or van) used in commuting:"
-HD01_VD02,"Estimate; Aggregate number of vehicles (car, truck, or van) used in commuting: - Male"
-HD02_VD02,"Margin of Error; Aggregate number of vehicles (car, truck, or van) used in commuting: - Male"
-HD01_VD03,"Estimate; Aggregate number of vehicles (car, truck, or van) used in commuting: - Female"
-HD02_VD03,"Margin of Error; Aggregate number of vehicles (car, truck, or van) used in commuting: - Female"
+version https://git-lfs.github.com/spec/v1
+oid sha256:e93660ab5f2b01cbaee6f9023fa57df33b3883916d0cf26efeba9caf4aa83773
+size 658
