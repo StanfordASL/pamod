@@ -1,5 +1,7 @@
 # Coordination Algorithms for Autonomous Mobility-on-Demand systems and the power network.
 
+[![DOI](https://zenodo.org/badge/140975383.svg)](https://zenodo.org/badge/latestdoi/140975383)
+
 ![On the interaction between Autonomous Mobility-on-Demand systems and the power network: models and coordination algorithms](media/pamod.png)
 
 Code for the paper: Rossi, F., Iglesias, R., Alizadeh, M., and Pavone, M., [_On the interaction between Autonomous Mobility-on-Demand systems and the power network: models and coordination algorithms_](https://arxiv.org/pdf/1709.04906.pdf), Transactions on Control of Networked Systems, 2019 (In Press).
