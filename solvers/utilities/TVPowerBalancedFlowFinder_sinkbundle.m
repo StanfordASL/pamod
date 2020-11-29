@@ -197,6 +197,9 @@ end
 % sources/sinks  at a given charge level, generators, phase angle at each
 % power node, power flow on each power link, congestion relaxation,
 % source-sink relaxation
+
+StateSize = double(StateSize); % Just in case we got cast back
+
 if debugflag
     fprintf('State size: %d\n',StateSize)
 end

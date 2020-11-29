@@ -201,8 +201,8 @@ end
 for t=1:Thor
     for i=1:length(ChargersList)
         for c=1:C
-            f_cost(FindChargeLinkRtcl(t,c,i))=RebWeight*ValueOfTime*ChargerTime(i) + abs(ChargerSpeed(i))*BatteryDepreciationPerUnitCharge;;
-            f_cost(FindDischargeLinkRtcl(t,c,i))=RebWeight*ValueOfTime*ChargerTime(i) + abs(ChargerSpeed(i))*BatteryDepreciationPerUnitCharge;;
+            f_cost(FindChargeLinkRtcl(t,c,i))=RebWeight*ValueOfTime*ChargerTime(i) + abs(ChargerSpeed(i))*BatteryDepreciationPerUnitCharge;
+            f_cost(FindDischargeLinkRtcl(t,c,i))=RebWeight*ValueOfTime*ChargerTime(i) + abs(ChargerSpeed(i))*BatteryDepreciationPerUnitCharge;
         end
     end
 end
@@ -381,7 +381,9 @@ end
 
 
 % Conservation of rebalancers
+fprintf("  Conservation of rebalancers: ")
 for t=1:Thor
+    fprintf("%d/%d..",t,Thor)
     for c=1:C
         for i=1:N
             if ~cachedAeqflag
@@ -499,6 +501,7 @@ if cyclicflag == 1 || cyclicflag == 3
     Beq(Aeqrow) = sum(sum(sum(EmptyVehicleInitialPosRT))); %The total correct number of vehicles is out there.
     Aeqrow = Aeqrow+1;
 end
+fprintf("\n")
 
 % Sum of all FindPaxSourceChargeck = Pax. source
 
@@ -630,7 +633,9 @@ end
 
 %% 
 % Power grid: conservation of power
+fprintf("  Conservation of power ")
 for t=1:Thor
+    fprintf("%d/%d..",t,Thor)
     for i=1:NP
         if ~cachedAeqflag
             if ~isempty(PowerGraphM{i})
@@ -663,10 +668,10 @@ for t=1:Thor
                         if c+ChargerSpeed(l)<=C
                             for deltat=0:ChargerTime(l)-1
                                 if t-deltat>0 && t-deltat+ChargerTime(l)<=Thor
-                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindChargeLinkRtcl(t-deltat,c,l),ChargerSpeed(l)/ChargerTime(l)*ChargeUnitToMW];
+                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindChargeLinkRtcl(t-deltat,c,l),double(ChargerSpeed(l))/double(ChargerTime(l))*double(ChargeUnitToMW)];
                                     Aeqentry=Aeqentry+1;
                                 elseif cyclicflag==1
-                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindChargeLinkRtcl(mod(t-deltat-1,Thor)+1,c,l),ChargerSpeed(l)/ChargerTime(l)*ChargeUnitToMW];
+                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindChargeLinkRtcl(mod(t-deltat-1,Thor)+1,c,l),double(ChargerSpeed(l))/double(ChargerTime(l))*double(ChargeUnitToMW)];
                                 end
                             end
                         end
@@ -675,10 +680,10 @@ for t=1:Thor
                         if c-ChargerSpeed(l)>=1
                             for deltat=0:ChargerTime(l)-1
                                 if t-deltat>0 && t-deltat+ChargerTime(l)<=Thor
-                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindDischargeLinkRtcl(t-deltat,c,l),-v2g_efficiency*ChargerSpeed(l)/ChargerTime(l)*ChargeUnitToMW];
+                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindDischargeLinkRtcl(t-deltat,c,l),-double(v2g_efficiency)*double(ChargerSpeed(l))/double(ChargerTime(l))*double(ChargeUnitToMW)];
                                     Aeqentry=Aeqentry+1;
                                 elseif cyclicflag==1
-                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindDischargeLinkRtcl(mod(t-deltat-1,Thor)+1,c,l),-v2g_efficiency*ChargerSpeed(l)/ChargerTime(l)*ChargeUnitToMW];
+                                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindDischargeLinkRtcl(mod(t-deltat-1,Thor)+1,c,l),-double(v2g_efficiency)*double(ChargerSpeed(l))/double(ChargerTime(l))*double(ChargeUnitToMW)];
                                     Aeqentry=Aeqentry+1;
                                 end
                             end
@@ -701,6 +706,7 @@ for t=1:Thor
         % Add base power on B
     end
 end
+fprintf("\n")
 %%
 %
 % Power grid: phase angle
@@ -709,7 +715,7 @@ for t=1:Thor
         if ~isempty(PowerGraphM{i})
             for j=1:length(PowerGraphM{i})
                 if ~cachedAeqflag
-                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindPowerLinktij(t,i,j),-full(PowerLineReactanceM{i}(j))];
+                    Aeqsparse(Aeqentry,:)=[Aeqrow,FindPowerLinktij(t,i,j),-double(full(PowerLineReactanceM{i}(j)))];
                     Aeqentry=Aeqentry+1;
                     Aeqsparse(Aeqentry,:)=[Aeqrow,FindPhaseAngleti(t,i),1];
                     Aeqentry=Aeqentry+1;
@@ -862,8 +868,12 @@ end
 
 
 if ~cachedAeqflag
+    Aeqsparse=double(Aeqsparse);
     Aeqsparse=Aeqsparse(1:Aeqentry-1,:);
+    Aeqsparse=double(Aeqsparse);
+    Aineqsparse = double(Aineqsparse);
     Aineqsparse=Aineqsparse(1:Aineqentry-1,:);
+    Aineqsparse = double(Aineqsparse);
     Bineq=Bineq(1:Aineqrow-1,:);
     dual_prices_ix=dual_prices_ix(1:Aeqrow-1);
     dual_charger_prices_ix=dual_charger_prices_ix(1:Aeqrow-1);
