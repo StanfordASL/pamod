@@ -251,6 +251,9 @@ end
 if powernetworkloadrelaxflag
     StateSize=StateSize+2*NP*Thor;
 end
+
+StateSize = double(StateSize); % And another time just in case we get cast back to int for some reason
+
 % Passengers on a link and rebalancers on a link at a charge level,
 % passengers and rebalancers on a charging/discharging link, passenger
 % sources/sinks  at a given charge level, generators, phase angle at each

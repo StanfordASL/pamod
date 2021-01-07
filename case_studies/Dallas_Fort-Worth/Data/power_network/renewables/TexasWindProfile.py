@@ -19,8 +19,9 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import pickle
 
-import urllib2
-from urllib2 import Request, urlopen, URLError
+import urllib.request, urllib.error, urllib.parse
+from urllib.request import Request, urlopen
+from urllib.error import URLError
 # #import urllib
 import os
 from bs4 import BeautifulSoup
@@ -57,16 +58,16 @@ def DownloadZipFiles(_url,_dlurl):
     #cwd = os.getcwd()
     dirname = 'TexasWind'
     newdir = cwd + '/'+ dirname
-    print "The current Working directory is " + cwd
+    print(("The current Working directory is " + cwd))
     newfile = open(newdir+'/zipfiles.txt','w')
-    print newfile
+    print(newfile)
 
 
-    print "Downloading.. "
+    print("Downloading.. ")
     #Set variable for page to be open and url to be concatenated 
     url = _url
     dlurl = _dlurl
-    page = urllib2.urlopen(dlurl).read()
+    page = urllib.request.urlopen(dlurl).read()
 
     #File extension to be looked for. 
     extension = ".zip"
@@ -100,28 +101,28 @@ def DownloadZipFiles(_url,_dlurl):
                     #zipfile = line[48:]
                     #Removes the last 4 characters to remove the .zip
                     #zipfile2 = zipfile[:3]
-                    #print "Trying to reach " + ziplink
-                    response = urllib2.urlopen(ziplink)
+                    #print("Trying to reach " + ziplink)
+                    response = urllib.request.urlopen(ziplink)
                 except URLError as e:
                     if hasattr(e, 'reason'):
-                        print 'We failed to reach a server.'
-                        print 'Reason: ', e.reason
+                        print('We failed to reach a server.')
+                        print(('Reason: ', e.reason))
                         continue
                     elif hasattr(e, 'code'):
-                        print 'The server couldn\'t fulfill the request.'
-                        print 'Error code: ', e.code
+                        print('The server couldn\'t fulfill the request.')
+                        print(('Error code: ', e.code))
                         continue
                 else:
                     zipcontent = response.read()
                     zipName = response.info()['Content-Disposition'] 
                     zipName=zipName[21:]
-                    print zipName
+                    print(zipName)
                     completeName = os.path.join(newdir, zipName)
                     with open (completeName, 'w') as f:
-                        print "downloading.. " + zipName
+                        print(("downloading.. " + zipName))
                         f.write(zipcontent)
                         f.close()
-    print "Script completed"
+    print("Script completed")
 
 
 # # Wind data
@@ -149,7 +150,7 @@ for zipfilename in zipfilenames:
 
 csvfilenamepattern = cwd+'/TexasWind/cdr.*WPP*.csv'
 csvfilenamepattern = glob.glob(csvfilenamepattern)
-print csvfilenamepattern[0], len(csvfilenamepattern)
+print((csvfilenamepattern[0], len(csvfilenamepattern)))
 
 
 # In[7]:
@@ -240,7 +241,7 @@ for zipfilename in zipfilenames:
 
 csvfilenamepattern = cwd+'/TexasWind/cdr.*PVG*.csv'
 csvfilenamepattern = glob.glob(csvfilenamepattern)
-print csvfilenamepattern[0], len(csvfilenamepattern)
+print((csvfilenamepattern[0], len(csvfilenamepattern)))
 
 
 # In[15]:
@@ -325,7 +326,7 @@ for zipfilename in zipfilenames:
 
 csvfilenamepattern = cwd+'/TexasWind/cdr.*ACTUALSYSLOAD*.csv'
 csvfilenamepattern = glob.glob(csvfilenamepattern)
-print csvfilenamepattern[0], len(csvfilenamepattern)
+print((csvfilenamepattern[0], len(csvfilenamepattern)))
 
 
 # In[22]:

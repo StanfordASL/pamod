@@ -219,8 +219,11 @@ end
 
 
 n_eq_constr = N*(M+1)*C*Thor + M + TotNumSources +Thor*(NP+EP);
-n_eq_entries = 2*(E+2*NumChargers)*(M+1)*C*Thor + 2*C*TotNumSources+ 2*Thor*C*M + ...
-    Thor*(2*EP+NumGenerators+2*sum(ChargerTime) + 3*EP);
+n_eq_entries = 2*(E+2*NumChargers)*(M+1)*C*Thor + 2*C*TotNumSources+ 2*Thor*C*M + ... % Conservation of vehicles
+    C*TotNumSources + ... % Conservation at source
+    Thor*C*M + ... % Conservation at sink
+    Thor*(2*EP+NumGenerators+2*sum(ChargerTime)*C*(M+1) + ... % Conservation of power
+    + 3*EP);  % Phase angle
 if sourcerelaxflag
     n_eq_entries=n_eq_entries+2*TotNumSources;
 end
@@ -263,7 +266,10 @@ end
 % Conservation of passengers: at every node, flow entering from other nodes
 % (at appropriate charge level) equals flow exiting to other nodes (at
 % appropriate charge level) plus charging flow (if applicable).
+disp(" Conservation of passengers")
+fprintf(" Time ")
 for t=1:Thor
+    fprintf("%d/%d..",t,Thor);
     for c=1:C
         for k=1:M
             for i=1:N
@@ -336,9 +342,10 @@ for t=1:Thor
         end
     end
 end
-
+fprintf("\n");
         
 % Conservation of rebalancers
+disp(" Conservation of rebalancers")
 for t=1:Thor
     for c=1:C
         for i=1:N
@@ -423,6 +430,7 @@ end
 
 % Sum of all FindPaxSourceChargeck = Pax. source
 
+disp(" Conservation at source")
 for k=1:M
     for ssi=1:length(Sources{k})
         if ~cachedAeqflag
@@ -441,6 +449,7 @@ for k=1:M
 end
 
 % Sum of all FindPaxSinkChargeck = Pax. sink
+disp(" Conservation at sink")
 for k=1:M
     if ~cachedAeqflag
         for c=1:C
@@ -462,9 +471,16 @@ end
 
 %%
 % Power grid: conservation of power
+disp(" Conservation of power")
+fprintf(" Time ");
 for t=1:Thor
+    fprintf("%d/%d..",t,Thor)
+    %fprintf("Next entry: %d/%d\n",Aeqentry, size(Aeqsparse,1));
+    tpower = 0;
+    tchargers = 0;
     for i=1:NP
         if ~cachedAeqflag
+            dtp = tic;
             if ~isempty(PowerGraphM{i})
                 for j=1:length(PowerGraphM{i})
                     % Outbound power - outbound is positive
@@ -487,8 +503,8 @@ for t=1:Thor
                     % Add gen power
                 end
             end
-            
-            
+            tpower = tpower+toc(dtp);
+            dtc = tic;
             for l=1:NumChargers %Go through chargers in the road network
                 if RoadToPowerMap(l)==i %If this node i in the power network corresponds to the charger
                     for c=1:C
@@ -540,16 +556,20 @@ for t=1:Thor
                 Aeqsparse(Aeqentry,:)=[Aeqrow,FindPowerNetworkRelaxti(t,i),-1];
                 Aeqentry=Aeqentry+1;
             end
+            tchargers = tchargers + toc(dtc);
         end
         Beq(Aeqrow)=-PowerExtLoads(i,t);
         dual_prices_ix(Aeqrow)=1;
         Aeqrow=Aeqrow+1;
         % Add base power on B
     end
+    %fprintf("Time: power %f, chargers %f\n", tpower, tchargers);
 end
+fprintf("\n");
 %%
 %
 % Power grid: phase angle
+disp(" Phase angle")
 for t=1:Thor
     for i=1:NP
         if ~isempty(PowerGraphM{i})
@@ -575,6 +595,7 @@ if debugflag
 end
 
 % Roads: congestion
+disp(" Road congestion")
 for t=1:Thor
     for i=1:N
         for j=RoadGraph{i}
@@ -600,6 +621,7 @@ end
 
 % Chargers: congestion
 
+disp(" Charger congestion")
 for t=1:Thor
     for l=1:NumChargers
         for c=1:C
@@ -624,6 +646,7 @@ end
 % Power grid: thermal capacities now in ubs and lbs
 
 %Power grid: ramp-up and ramp-down
+disp(" Ramp-up and ramp-down")
 for t=1:Thor-1
     for g=1:NumGenerators
         Aineqsparse(Aineqentry,:)=[Aineqrow,FindGeneratorti(t+1,g),1];
@@ -663,10 +686,7 @@ if Aineqentry-1~=n_ineq_entries
     fprintf('ERROR: unexpected number of inequality entries (expected: %d, actual: %d)\n',n_ineq_entries,Aineqentry-1)
 end
 
-if (debugflag)
-    disp('Building matrices from sparse representation')
-end
-
+disp('Building matrices from sparse representation')
 
 if ~cachedAeqflag
     Aeqsparse=Aeqsparse(1:Aeqentry-1,:);
@@ -832,7 +852,7 @@ if Flags.SolveProblem
         options = mskoptimset(options,'Diagnostics','on','MSK_IPAR_INTPNT_BASIS','MSK_BI_NEVER');
         tic
         %[cplex_out,fval,exitflag,output,lambdas]=cplexlp(f_cost,Aineq,Bineq,Aeq,Beq,lb,ub);%, [], options);
-        [cplex_out,fval,exitflag,output,lambdas]=linprog(f_cost,Aineq,Bineq,Aeq,Beq,lb,ub, [], options);
+        [cplex_out,fval,exitflag,output,lambdas]=linprog(f_cost,Aineq,Bineq,Aeq,Beq,lb,ub, options);
         %[r,res] =  mosekopt('minimize',prob,param);
         toc
         %disp('Untested output, may crash')
@@ -846,8 +866,10 @@ if Flags.SolveProblem
 
     if strcmp (SOLVER_FLAG ,'CPLEX')
         % CPLEX stuff
-        options = cplexoptimset('Display', 'on', 'Algorithm', 'interior-point');
-        options.barrier.crossover  = -1;
+        options = cplexoptimset(); %'Display', 'on', 'Algorithm', 'interior-point');
+        options.Display = 'on';
+	options.Algorithm = 'interior-point';
+	options.barrier.crossover  = -1;
         options.barrier.limits.objrange = 1e50;
         tic
         [cplex_out,fval,exitflag,output,lambdas]=cplexlp(f_cost,Aineq,Bineq,Aeq,Beq,lb,ub,[], options);

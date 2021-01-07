@@ -4,19 +4,21 @@
 
 ![On the interaction between Autonomous Mobility-on-Demand systems and the power network: models and coordination algorithms](media/pamod.png)
 
-Code for the paper: Rossi, F., Iglesias, R., Alizadeh, M., and Pavone, M., [_On the interaction between Autonomous Mobility-on-Demand systems and the power network: models and coordination algorithms_](https://arxiv.org/pdf/1709.04906.pdf), Transactions on Control of Networked Systems, 2019 (In Press).
+Code for the paper: Rossi, F., Iglesias, R., Alizadeh, M., and Pavone, M., [_On the interaction between Autonomous Mobility-on-Demand systems and the power network: models and coordination algorithms_](https://arxiv.org/pdf/1709.04906.pdf), Transactions on Control of Networked Systems, vol. 7, no. 1, pp. 384-397, March 2020, doi: 10.1109/TCNS.2019.2923384.
 
 ![Dallas-Fort Worth case study](media/case_study.png)
 
 ## Requirements
 
-The code base contains both Python 2 code (scenario creation, visualization) and MATLAB code (optimization of the P-AMoD problem, receding-horizon simulation).
+The code base contains both Python 3 code (scenario creation, visualization) and MATLAB code (optimization of the P-AMoD problem, receding-horizon simulation).
 
 The Python requirements are detailed in `requirements.txt`. To install them, `pip install -r requirements.txt`. A virtualenv is highly recommended.
 
+Some Python tools also depend on system dependencies (in particular, `libspatialindex`). To install these dependencies, `cat ubuntu_requirements.txt | xargs -n1 apt-get install -y`
+
 We also use Jupyter notebooks for MATLAB. To install the [MATLAB Jupyter extension](https://github.com/Calysto/matlab_kernel), `pip install matlab_kernel`.
 
-To solve the P-AMoD problem, a LP solver is required in MATLAB. Our implementations supports CPLEX 12.X and MOSEK 8. If neither is available and the MOSEK solver is selected, the solver will fall back to MATLAB's built-in `linprog`.
+To solve the P-AMoD problem, a LP solver is required in MATLAB. Our implementations supports CPLEX 12.X and MOSEK 8 and 9. If neither is available and the MOSEK solver is selected, the solver will fall back to MATLAB's built-in `linprog`.
 
 ## Quick Start
 

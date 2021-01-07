@@ -79,8 +79,8 @@ addpath(genpath('solvers'))
 
 % These includes should be done outside, but as an additional line of
 % defense...
-addpath(genpath('~/mosek/8/toolbox/r2014a'));
-addpath(genpath('/opt/ibm/ILOG/CPLEX_Studio128/cplex/matlab/x86-64_linux'))
+%addpath(genpath('~/mosek/8/toolbox/r2014a'));
+%addpath(genpath('/opt/ibm/ILOG/CPLEX_Studio128/cplex/matlab/x86-64_linux'))
 
 % Load data
 load(input_scenario);
@@ -470,7 +470,7 @@ LinkLBdual=LinkUBidx'*lambdas.lower;
 % %%
 % figure()
 % 
-tplot=[5:0.5:14.5];
+%tplot=[5:0.5:14.5];
 % 
 % plot(tplot,DepTimeHist,'-.','LineWidth',2)
 % hold all
