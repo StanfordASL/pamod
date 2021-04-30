@@ -55,7 +55,7 @@ sklearn==0.0
 soupsieve==1.9.5
 tornado==6.0.3
 traitlets==4.3.3
-urllib3==1.25.6
+urllib3==1.25.8
 wcwidth==0.1.7
 wurlitzer==2.0.0
 xlrd==1.2.0
