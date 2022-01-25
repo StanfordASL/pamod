@@ -1,0 +1,42 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Rossi"
+  given-names: "Federico"
+  orcid: "https://orcid.org/0000-0002-8091-881X"
+- family-names: "Iglesias"
+  given-names: "Ramon"
+- family-names: "Alizadeh"
+  given-names: "Mahnoosh"
+  orcid: "https://orcid.org/0000-0003-3369-3846"
+- family-names: "Pavone"
+  given-names: "Marco"
+  orcid: "https://orcid.org/0000-0002-0206-4337"
+title: "Coordination Algorithms for Autonomous Mobility-on-Demand systems and the power network"
+version: 2.0
+doi: 10.5281/zenodo.4426980
+date-released: 2021-01-07
+url: "https://github.com/StanfordASL/pamod/"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Rossi"
+    given-names: "Federico"
+    orcid: "https://orcid.org/0000-0002-8091-881X "
+  - family-names: "Iglesias"
+    given-names: "Ramon"
+  - family-names: "Alizadeh"
+    given-names: "Mahnoosh"
+    orcid: "https://orcid.org/0000-0003-3369-3846"
+  - family-names: "Pavone"
+    given-names: "Marco"
+    orcid: "https://orcid.org/0000-0002-0206-4337"
+  doi: "10.1109/TCNS.2019.2923384"
+  journal: "IEEE Transactions on Control of Networked Systems"
+  month: 3
+  start: 384 # First page number
+  end: 397 # Last page number
+  title: "On the interaction between Autonomous Mobility-on-Demand systems and the power network: models and coordination algorithms"
+  issue: 1
+  volume: 7
+  year: 2020
