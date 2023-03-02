@@ -22,7 +22,7 @@ ipython-genutils==0.2.0
 jedi==0.15.1
 joblib==1.2.0
 jupyter-client==5.3.4
-jupyter-core==4.6.1
+jupyter-core==4.11.2
 kiwisolver==1.1.0
 lxml==4.9.1
 matlab-kernel==0.16.7
